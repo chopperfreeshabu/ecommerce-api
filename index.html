@@ -9,36 +9,55 @@
   <body>
     <div class="container">
       <h1 class="topic-name">Our Product</h1>
-      <div class="product-card">
-        <div class="top-sec">
-          <div class="img-container">
-            <img
-              src="https://kolzsticks.github.io/Free-Ecommerce-Products-Api/main/images/products/moisturizer.jpg"
-              alt=""
-            />
-          </div>
-          <div class="product-rating">⭐: 4.7 / 5 (120)</div>
-        </div>
-        <div class="bot-sec">
-          <div class="bot-head-sec">
-            <div class="name">Name: Hydrating Facial Moisturizer</div>
-            <div class="category">Category: Beauty & Personal Care</div>
-          </div>
-          <div class="bot-mid-sec">
-            <div class="desc-text">
-              "This Hydrating Facial Moisturizer is expertly formulated to
-              deeply nourish and hydrate your skin, providing lasting moisture
-              and a smooth, radiant complexion. Ideal for daily use."
-            </div>
-          </div>
-          <div class="bot-foot-sec">
-            <div class="keyword-container">
-              moisturizer, hydration, skincare, beauty
-            </div>
-            <div class="price-container">2000 Baht</div>
-          </div>
-        </div>
-      </div>
     </div>
+    <script>
+      const container = document.querySelector(".container");
+
+      async function getProductData() {
+        try {
+          const response = await fetch(
+            "https://kolzsticks.github.io/Free-Ecommerce-Products-Api/main/products.json",
+          );
+          const products = await response.json();
+
+          products.forEach((product) => {
+            const card = document.createElement("div");
+            card.className = "product-card";
+            card.innerHTML = `
+      <div class="top-sec">
+                <div class="img-container">
+                  <img
+                    src="${product.image}"
+                    alt=""
+                  />
+                </div>
+                <div class="product-rating">⭐: ${product.rating.stars} / 5 (${product.rating.count})</div>
+              </div>
+              <div class="bot-sec">
+                <div class="bot-head-sec">
+                  <div class="name">Name: ${product.name}</div>
+                  <div class="category">Category: ${product.category}</div>
+                </div>
+                <div class="bot-mid-sec">
+                  <div class="desc-text">
+                    "${product.description}"
+                  </div>
+                </div>
+                <div class="bot-foot-sec">
+                  <div class="keyword-container">
+                    ${product.keywords.join(", ")}
+                  </div>
+                  <div class="price-container">${product.priceCents} ฿</div>
+                </div>
+              </div>
+                  `;
+            container.appendChild(card);
+          });
+        } catch (error) {
+          console.log("Error", error);
+        }
+      }
+      getProductData();
+    </script>
   </body>
 </html>
