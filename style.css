@@ -5,6 +5,11 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.bg {
+  background-color: antiquewhite;
+  padding: 20px 0;
+}
+
 .container {
   width: 100%;
   display: grid;
@@ -17,7 +22,6 @@
 
 .topic-name {
   color: rgb(127, 86, 67);
-  grid-column: 1 / -1;
   text-align: center;
   font-size: 50px;
 }
